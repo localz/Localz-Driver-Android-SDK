@@ -1,7 +1,7 @@
 package com.localz.sdk.driversdkapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +15,7 @@ import com.localz.sdk.driver.model.OrderEta;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 
-    public static final String TAG = "OrderDetailsActivity";
+    public static final String TAG = OrderDetailsActivity.class.getSimpleName();
 
     public static Order order;
 
@@ -29,10 +29,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
         updateView(order);
 
-        ((Button) findViewById(R.id.sendEtaNotification)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sendEtaNotification).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocalzDriverSDK.getInstance().sendEtaNotification(OrderDetailsActivity.this, order.orderNumber, 0, new Callback<Void>() {
+                LocalzDriverSDK.getInstance().sendEtaNotification(OrderDetailsActivity.this, order.orderNumber, false, 0, new Callback<Void>() {
                     @Override
                     public void onSuccess(Void result) {
                         Log.d(TAG, "sendEtaNotification onSuccess");
@@ -47,7 +47,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             }
         });
 
-        ((Button) findViewById(R.id.complete)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.complete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LocalzDriverSDK.getInstance().completeOrder(OrderDetailsActivity.this, order.orderNumber, "signature", "notes", new Callback<Void>() {

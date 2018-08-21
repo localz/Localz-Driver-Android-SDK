@@ -7,7 +7,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.google.gms:google-services:3.2.1'
     }
 }
 
@@ -16,6 +17,10 @@ allprojects {
         google()
         jcenter()
         maven { url "http://localz.github.io/mvn-repo" }
+        maven {
+            url "https://jitpack.io"
+            credentials { username authToken }
+        }
     }
 }
 

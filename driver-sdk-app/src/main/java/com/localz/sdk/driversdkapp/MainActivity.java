@@ -1,9 +1,14 @@
 package com.localz.sdk.driversdkapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +22,7 @@ import com.localz.sdk.driver.LocalzDriverSDK;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "MainActivity";
+    public static final String TAG = MainActivity.class.getSimpleName();
     // Provide your own values
     public static final String PROJECT_ID = "YOUR_PROJECT_ID";
     public static final String GCM_PROJECT_ID = "YOUR_GCM_PROJECT_ID";
@@ -52,13 +57,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // allow app to always run in the background
+            PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            if (!powerManager.isIgnoringBatteryOptimizations(getPackageName())) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+            }
+        }
+    }
+
     private void initSdk() {
         LocalzDriverSDK.Configuration configuration = new LocalzDriverSDK.Configuration()
                 .setProjectId(PROJECT_ID)
                 .setSpotzProjectKey(SPOTZ_PROJECT_KEY)
                 .setCncProjectKey(ATTENDANT_KEY)
-                .setEnvironment(ENVIRONMENT)
-                .setGcmProjectId(GCM_PROJECT_ID);
+                .setEnvironment(ENVIRONMENT);
         LocalzDriverSDK.getInstance().init(this, configuration, new Callback<Void>() {
             @Override
             public void onSuccess(Void result) {
