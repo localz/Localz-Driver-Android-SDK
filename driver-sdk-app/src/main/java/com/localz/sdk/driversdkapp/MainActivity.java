@@ -2,6 +2,7 @@ package com.localz.sdk.driversdkapp;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -60,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        checkLocationPermission();
+    }
+
+    private void checkBatteryOptimisation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // allow app to always run in the background
             PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -69,6 +74,34 @@ public class MainActivity extends AppCompatActivity {
                 intent.setData(Uri.parse("package:" + getPackageName()));
                 startActivity(intent);
             }
+        }
+    }
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                android.support.v7.app.AlertDialog.Builder alertBuilder = new android.support.v7.app.AlertDialog.Builder(this);
+                alertBuilder.setCancelable(true);
+                alertBuilder.setTitle(R.string.location_permission_required_title);
+                alertBuilder.setMessage(R.string.location_permission_required_text);
+                alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                    }
+                });
+
+                android.support.v7.app.AlertDialog alert = alertBuilder.create();
+                alert.show();
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            }
+        } else {
+            checkBatteryOptimisation();
         }
     }
 

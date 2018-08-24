@@ -2,15 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.localz.sdk.driversdkapp">
 
-    <!--Permission to use only if default service for Spotz Push SDK is used.
-        To add customisations to how notifications are handled, create your own version which extends
-        com.localz.spotzpush.sdk.service.AbstractGcmIntentService -->
-    <permission
-        android:name="com.localz.spotzpush.sdk.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.localz.spotzpush.sdk.permission.C2D_MESSAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

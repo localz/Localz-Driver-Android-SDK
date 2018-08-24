@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Driver Sdk App</string>
+    <string name="location_permission_required_title">App requires your location</string>
+    <string name="location_permission_required_text">Your location is required for the app to more accurately notify customers of arrival time.</string>
 </resources>
