@@ -51,13 +51,47 @@
             android:tooltipText="Delivery Phone" />
 
         <EditText
-            android:id="@+id/address"
+            android:id="@+id/sub_street"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="412 Collins St, Melbourne, 3000, VIC, Australia"
-            android:tooltipText="Address" />
-
+            android:text="Level 9"
+            android:tooltipText="Sub street" />
+        <EditText
+            android:id="@+id/street"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="412 Collins St"
+            android:tooltipText="Street" />
+        <EditText
+            android:id="@+id/locality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Melbourne"
+            android:tooltipText="Suburb" />
+        <EditText
+            android:id="@+id/postcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="3000"
+            android:tooltipText="Postcode" />
+        <EditText
+            android:id="@+id/region"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="VIC"
+            android:tooltipText="State" />
+        <EditText
+            android:id="@+id/country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Australia"
+            android:tooltipText="Country" />
         <Button
             android:id="@+id/submit"
             android:layout_width="match_parent"
