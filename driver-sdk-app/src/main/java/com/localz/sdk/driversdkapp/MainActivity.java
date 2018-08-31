@@ -22,11 +22,10 @@ import com.localz.sdk.driver.Error;
 import com.localz.sdk.driver.LocalzDriverSDK;
 
 public class MainActivity extends AppCompatActivity {
-
     public static final String TAG = MainActivity.class.getSimpleName();
+    
     // Provide your own values
     public static final String PROJECT_ID = "YOUR_PROJECT_ID";
-    public static final String GCM_PROJECT_ID = "YOUR_GCM_PROJECT_ID";
     public static final String SPOTZ_PROJECT_KEY = "YOUR_SPOTZ_PROJECT_KEY";
     public static final String ATTENDANT_KEY = "YOUR_ATTENDANT_KEY";
     public static final String ENVIRONMENT = "prd"; // prd, dev, stg, tst
@@ -50,12 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         initializeButton = findViewById(R.id.btn_do_it);
-        initializeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initSdk();
-            }
-        });
+        initializeButton.setOnClickListener(v -> initSdk());
     }
 
     @Override
@@ -87,12 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 alertBuilder.setCancelable(true);
                 alertBuilder.setTitle(R.string.location_permission_required_title);
                 alertBuilder.setMessage(R.string.location_permission_required_text);
-                alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-                    }
-                });
+                alertBuilder.setPositiveButton(android.R.string.yes, (dialog, which) -> ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0));
 
                 android.support.v7.app.AlertDialog alert = alertBuilder.create();
                 alert.show();

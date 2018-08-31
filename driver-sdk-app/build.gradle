@@ -28,6 +28,11 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 ext {
@@ -36,27 +41,13 @@ ext {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
-    implementation 'com.localz.sdk.driver:driver-sdk:0.9.3'
-    implementation "com.google.android.gms:play-services-base:$playServicesLibVersion"
     implementation "com.google.firebase:firebase-messaging:$playServicesLibVersion"
-    implementation('com.localz.spotzpush.sdk:spotz-push-sdk-fcm:2.2.5@aar') {
-        exclude group: 'com.google.android'
-    }
 
-    implementation "com.google.android.gms:play-services-location:$playServicesLibVersion"
-    implementation('com.github.localz:real-time-sdk-android-libs:0.8.6') {
-        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
-    }
-
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.google.http-client:google-http-client:1.23.0'
-    implementation 'com.google.http-client:google-http-client-gson:1.23.0'
+    implementation 'com.github.localz:localz-driver-sdk-android:1.1.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -36,27 +36,24 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         loginButton = findViewById(R.id.login_button);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+        loginButton.setOnClickListener(v -> {
+            String username = usernameEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
 
-                LocalzDriverSDK.getInstance().login(LoginActivity.this, username, password, new Callback<Void>() {
-                    @Override
-                    public void onSuccess(Void result) {
-                        Log.d(TAG, "login onSuccess");
-                        Intent intent = new Intent(LoginActivity.this, ActionsActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
+            LocalzDriverSDK.getInstance().login(LoginActivity.this, username, password, new Callback<Void>() {
+                @Override
+                public void onSuccess(Void result) {
+                    Log.d(TAG, "login onSuccess");
+                    Intent intent = new Intent(LoginActivity.this, ActionsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
 
-                    @Override
-                    public void onError(Error error) {
-                        Log.d(TAG, "login onError: " + error);
-                    }
-                });
-            }
+                @Override
+                public void onError(Error error) {
+                    Log.d(TAG, "login onError: " + error);
+                }
+            });
         });
     }
 }

@@ -39,38 +39,35 @@ public class CreateOrderActivity extends AppCompatActivity {
         deliveryPhone = findViewById(R.id.deliveryPhone);
         address = findViewById(R.id.address);
 
-        findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Order order = new Order();
-                order.orderStatus = OrderStatus.PENDING;
-                order.orderDate = new Date();
-                order.pickupStart = new Date();
-                order.pickupEnd = new Date(System.currentTimeMillis() + 1000000);
-                order.totalItems = 0;
-                order.pickupLocation = "Entrance";
-                order.currency = "AUD";
-                order.orderNumber = orderNumber.getText().toString();
-                order.orderAmount = new BigDecimal(orderAmount.getText().toString());
-                order.deliveryName = deliveryName.getText().toString();
-                order.deliveryEmail = deliveryEmail.getText().toString();
-                order.deliveryPhone = deliveryPhone.getText().toString();
-                order.specific = new HashMap<>();
-                order.specific.put("address", address.getText().toString());
+        findViewById(R.id.submit).setOnClickListener(v -> {
+            Order order = new Order();
+            order.orderStatus = OrderStatus.PENDING;
+            order.orderDate = new Date();
+            order.pickupStart = new Date();
+            order.pickupEnd = new Date(System.currentTimeMillis() + 1000000);
+            order.totalItems = 0;
+            order.pickupLocation = "Entrance";
+            order.currency = "AUD";
+            order.orderNumber = orderNumber.getText().toString();
+            order.orderAmount = new BigDecimal(orderAmount.getText().toString());
+            order.deliveryName = deliveryName.getText().toString();
+            order.deliveryEmail = deliveryEmail.getText().toString();
+            order.deliveryPhone = deliveryPhone.getText().toString();
+            order.specific = new HashMap<>();
+            order.specific.put("address", address.getText().toString());
 
-                LocalzDriverSDK.getInstance().createOrder(CreateOrderActivity.this, order, new Callback<Order>() {
+            LocalzDriverSDK.getInstance().createOrder(CreateOrderActivity.this, order, new Callback<Order>() {
 
-                    @Override
-                    public void onSuccess(Order result) {
-                        Log.d(TAG, "createOrder onSuccess");
-                    }
+                @Override
+                public void onSuccess(Order result) {
+                    Log.d(TAG, "createOrder onSuccess");
+                }
 
-                    @Override
-                    public void onError(Error error) {
-                        Log.d(TAG, "createOrder onError: " + error);
-                    }
-                });
-            }
+                @Override
+                public void onError(Error error) {
+                    Log.d(TAG, "createOrder onError: " + error);
+                }
+            });
         });
     }
 }
