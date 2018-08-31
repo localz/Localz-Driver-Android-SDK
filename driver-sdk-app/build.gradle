@@ -47,7 +47,7 @@ dependencies {
 
     implementation "com.google.firebase:firebase-messaging:$playServicesLibVersion"
 
-    implementation 'com.github.localz:localz-driver-sdk-android:1.1.1'
+    implementation 'com.github.localz:localz-driver-sdk-android:1.1.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
