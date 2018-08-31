@@ -37,34 +37,26 @@ public class GetOrdersActivity extends AppCompatActivity {
 
         orderList = findViewById(R.id.order_list);
 
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Date fromDate;
-                try {
-                    fromDate = simpleDateFormat.parse("2017-01-01");
-                } catch (ParseException e) {
-                    fromDate = new Date(0);
-                }
-                LocalzDriverSDK.getInstance().retrieveOrders(GetOrdersActivity.this, fromDate, new Date(), new Callback<OrderList>() {
-                    @Override
-                    public void onSuccess(final OrderList result) {
-                        Log.d(TAG, "retrieveOrders onSuccess");
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                populateOrders(result);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(Error error) {
-                        Log.d(TAG, "retrieveOrders onError " + error);
-                    }
-                });
+        handler.post(() -> {
+            Date fromDate;
+            try {
+                fromDate = simpleDateFormat.parse("2017-01-01");
+            } catch (ParseException e) {
+                fromDate = new Date(0);
             }
+            LocalzDriverSDK.getInstance().retrieveOrders(GetOrdersActivity.this, fromDate, new Date(), new Callback<OrderList>() {
+                @Override
+                public void onSuccess(final OrderList result) {
+                    Log.d(TAG, "retrieveOrders onSuccess");
+
+                    runOnUiThread(() -> populateOrders(result));
+                }
+
+                @Override
+                public void onError(Error error) {
+                    Log.d(TAG, "retrieveOrders onError " + error);
+                }
+            });
         });
     }
 
@@ -81,12 +73,7 @@ public class GetOrdersActivity extends AppCompatActivity {
                 orderStatusTextView.setText("" + order.orderStatus);
 
                 view.setTag(order.orderNumber);
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getOrderDetails("" + v.getTag());
-                    }
-                });
+                view.setOnClickListener(v -> getOrderDetails("" + v.getTag()));
 
                 orderList.addView(view);
             }

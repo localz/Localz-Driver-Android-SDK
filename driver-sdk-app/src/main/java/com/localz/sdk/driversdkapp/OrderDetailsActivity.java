@@ -29,76 +29,56 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
         updateView(order);
 
-        findViewById(R.id.sendEtaNotification).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sendEtaNotification).setOnClickListener(v -> LocalzDriverSDK.getInstance().sendEtaNotification(OrderDetailsActivity.this, order.orderNumber, false, 0, new Callback<Void>() {
             @Override
-            public void onClick(View v) {
-                LocalzDriverSDK.getInstance().sendEtaNotification(OrderDetailsActivity.this, order.orderNumber, false, 0, new Callback<Void>() {
-                    @Override
-                    public void onSuccess(Void result) {
-                        Log.d(TAG, "sendEtaNotification onSuccess");
-                        refreshOrderDetails();
-                    }
-
-                    @Override
-                    public void onError(Error error) {
-                        Log.d(TAG, "sendEtaNotification onError: " + error);
-                    }
-                });
+            public void onSuccess(Void result) {
+                Log.d(TAG, "sendEtaNotification onSuccess");
+                refreshOrderDetails();
             }
-        });
 
-        findViewById(R.id.complete).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                LocalzDriverSDK.getInstance().completeOrder(OrderDetailsActivity.this, order.orderNumber, "signature", "notes", new Callback<Void>() {
-                    @Override
-                    public void onSuccess(Void result) {
-                        Log.d(TAG, "completeOrder onSuccess");
-                        refreshOrderDetails();
-                    }
-
-                    @Override
-                    public void onError(Error error) {
-                        Log.d(TAG, "completeOrder onError: " + error);
-                    }
-                });
+            public void onError(Error error) {
+                Log.d(TAG, "sendEtaNotification onError: " + error);
             }
-        });
+        }));
 
-        ((Button) findViewById(R.id.acknowledge)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.complete).setOnClickListener(v -> LocalzDriverSDK.getInstance().completeOrder(OrderDetailsActivity.this, order.orderNumber, "signature", "notes", new Callback<Void>() {
             @Override
-            public void onClick(View v) {
-                LocalzDriverSDK.getInstance().acknowledgeOrder(OrderDetailsActivity.this, order.orderNumber, new Callback<Void>() {
-                    @Override
-                    public void onSuccess(Void result) {
-                        Log.d(TAG, "acknowledgeOrder onSuccess");
-                        refreshOrderDetails();
-                    }
-
-                    @Override
-                    public void onError(Error error) {
-                        Log.d(TAG, "acknowledgeOrder onError: " + error);
-                    }
-                });
+            public void onSuccess(Void result) {
+                Log.d(TAG, "completeOrder onSuccess");
+                refreshOrderDetails();
             }
-        });
 
-        ((Button) findViewById(R.id.getEtaForOrderNumber)).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                LocalzDriverSDK.getInstance().getEtaForOrderNumber(OrderDetailsActivity.this, order.orderNumber, new Callback<OrderEta>() {
-                    @Override
-                    public void onSuccess(OrderEta result) {
-                        Log.d(TAG, "getEtaForOrderNumber onSuccess");
-                    }
-
-                    @Override
-                    public void onError(Error error) {
-                        Log.d(TAG, "getEtaForOrderNumber onError: " + error);
-                    }
-                });
+            public void onError(Error error) {
+                Log.d(TAG, "completeOrder onError: " + error);
             }
-        });
+        }));
+
+        ((Button) findViewById(R.id.acknowledge)).setOnClickListener(v -> LocalzDriverSDK.getInstance().acknowledgeOrder(OrderDetailsActivity.this, order.orderNumber, new Callback<Void>() {
+            @Override
+            public void onSuccess(Void result) {
+                Log.d(TAG, "acknowledgeOrder onSuccess");
+                refreshOrderDetails();
+            }
+
+            @Override
+            public void onError(Error error) {
+                Log.d(TAG, "acknowledgeOrder onError: " + error);
+            }
+        }));
+
+        ((Button) findViewById(R.id.getEtaForOrderNumber)).setOnClickListener(v -> LocalzDriverSDK.getInstance().getEtaForOrderNumber(OrderDetailsActivity.this, order.orderNumber, new Callback<OrderEta>() {
+            @Override
+            public void onSuccess(OrderEta result) {
+                Log.d(TAG, "getEtaForOrderNumber onSuccess");
+            }
+
+            @Override
+            public void onError(Error error) {
+                Log.d(TAG, "getEtaForOrderNumber onError: " + error);
+            }
+        }));
     }
 
     private void refreshOrderDetails() {
@@ -107,12 +87,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             public void onSuccess(Order result) {
                 Log.d(TAG, "getOrderDetails onSuccess");
                 OrderDetailsActivity.order = result;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateView(OrderDetailsActivity.order);
-                    }
-                });
+                runOnUiThread(() -> updateView(OrderDetailsActivity.order));
             }
 
             @Override

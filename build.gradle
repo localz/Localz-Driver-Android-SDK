@@ -16,10 +16,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "http://localz.github.io/mvn-repo" }
         maven {
             url "https://jitpack.io"
-            credentials { username authToken }
         }
     }
 }
