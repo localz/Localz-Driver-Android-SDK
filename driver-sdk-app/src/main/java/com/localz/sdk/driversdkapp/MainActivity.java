@@ -99,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
                 .setProjectId(PROJECT_ID)
                 .setSpotzProjectKey(SPOTZ_PROJECT_KEY)
                 .setCncProjectKey(ATTENDANT_KEY)
-                .setEnvironment(ENVIRONMENT);
+                .setEnvironment(ENVIRONMENT)
+                .setPinningEnabled(false);
+
         LocalzDriverSDK.getInstance().init(this, configuration, new Callback<Void>() {
             @Override
             public void onSuccess(Void result) {
