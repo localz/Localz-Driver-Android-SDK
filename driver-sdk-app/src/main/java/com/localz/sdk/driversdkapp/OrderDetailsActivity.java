@@ -3,15 +3,14 @@ package com.localz.sdk.driversdkapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.localz.sdk.driver.Callback;
 import com.localz.sdk.driver.Error;
-import com.localz.sdk.driver.LocalzDriverSDK;
 import com.localz.sdk.driver.model.Order;
 import com.localz.sdk.driver.model.OrderEta;
+import com.localz.sdk.driver.play.LocalzDriverSDK;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 

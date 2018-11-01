@@ -2,7 +2,6 @@ package com.localz.sdk.driversdkapp;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -14,12 +13,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import com.localz.sdk.driver.Callback;
 import com.localz.sdk.driver.Error;
-import com.localz.sdk.driver.LocalzDriverSDK;
+import com.localz.sdk.driver.play.LocalzDriverSDK;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();

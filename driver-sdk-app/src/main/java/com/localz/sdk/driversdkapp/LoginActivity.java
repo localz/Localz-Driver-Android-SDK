@@ -1,16 +1,15 @@
 package com.localz.sdk.driversdkapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.localz.sdk.driver.Callback;
 import com.localz.sdk.driver.Error;
-import com.localz.sdk.driver.LocalzDriverSDK;
+import com.localz.sdk.driver.play.LocalzDriverSDK;
 
 public class LoginActivity extends AppCompatActivity {
 

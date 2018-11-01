@@ -7,10 +7,10 @@ import android.widget.EditText;
 
 import com.localz.sdk.driver.Callback;
 import com.localz.sdk.driver.Error;
-import com.localz.sdk.driver.LocalzDriverSDK;
 import com.localz.sdk.driver.model.Address;
 import com.localz.sdk.driver.model.Order;
 import com.localz.sdk.driver.model.OrderStatus;
+import com.localz.sdk.driver.play.LocalzDriverSDK;
 
 import java.math.BigDecimal;
 import java.util.Date;
