@@ -12,6 +12,8 @@ import com.localz.sdk.driver.model.Order;
 import com.localz.sdk.driver.model.OrderStatus;
 import com.localz.sdk.driver.play.LocalzDriverSDK;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -71,7 +73,7 @@ public class CreateOrderActivity extends AppCompatActivity {
             address.country = country.getText().toString();
             order.address = address;
 
-            LocalzDriverSDK.getInstance().createOrder(CreateOrderActivity.this, order, new Callback<Order>() {
+            LocalzDriverSDK.INSTANCE.createOrder(CreateOrderActivity.this, order, new Callback<Order>() {
 
                 @Override
                 public void onSuccess(Order result) {
@@ -79,7 +81,7 @@ public class CreateOrderActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onError(Error error) {
+                public void onError(@NotNull Error error) {
                     Log.d(TAG, "createOrder onError: " + error);
                 }
             });

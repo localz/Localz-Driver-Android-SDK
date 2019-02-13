@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:tooltipText="Password"
-            android:text="passwOrd"/>
+            android:text="password"/>
 
         <Button
             android:id="@+id/login_button"

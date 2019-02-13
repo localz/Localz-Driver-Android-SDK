@@ -15,6 +15,8 @@ import com.localz.sdk.driver.model.Order;
 import com.localz.sdk.driver.model.OrderList;
 import com.localz.sdk.driver.play.LocalzDriverSDK;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,13 +24,13 @@ import java.util.Locale;
 
 public class GetOrdersActivity extends AppCompatActivity {
 
-    public static final String TAG = "GetOrdersActivity";
+    private static final String TAG = "GetOrdersActivity";
 
     private LinearLayout orderList;
 
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class GetOrdersActivity extends AppCompatActivity {
             } catch (ParseException e) {
                 fromDate = new Date(0);
             }
-            LocalzDriverSDK.getInstance().retrieveOrders(GetOrdersActivity.this, fromDate, new Date(), new Callback<OrderList>() {
+            LocalzDriverSDK.INSTANCE.retrieveOrders(GetOrdersActivity.this, fromDate, new Date(), new Callback<OrderList>() {
                 @Override
                 public void onSuccess(final OrderList result) {
                     Log.d(TAG, "retrieveOrders onSuccess");
@@ -53,7 +55,7 @@ public class GetOrdersActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onError(Error error) {
+                public void onError(@NotNull Error error) {
                     Log.d(TAG, "retrieveOrders onError " + error);
                 }
             });
@@ -81,7 +83,7 @@ public class GetOrdersActivity extends AppCompatActivity {
     }
 
     private void getOrderDetails(String orderNumber) {
-        LocalzDriverSDK.getInstance().getOrderDetails(GetOrdersActivity.this, orderNumber, new Callback<Order>() {
+        LocalzDriverSDK.INSTANCE.getOrderDetails(GetOrdersActivity.this, orderNumber, new Callback<Order>() {
             @Override
             public void onSuccess(Order result) {
                 Log.d(TAG, "getOrderDetails onSuccess");
@@ -92,7 +94,7 @@ public class GetOrdersActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Error error) {
+            public void onError(@NotNull Error error) {
                 Log.d(TAG, "getOrderDetails onError: " + error);
             }
         });

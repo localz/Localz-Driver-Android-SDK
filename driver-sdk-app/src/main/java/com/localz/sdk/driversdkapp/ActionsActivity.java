@@ -10,6 +10,8 @@ import com.localz.sdk.driver.Callback;
 import com.localz.sdk.driver.Error;
 import com.localz.sdk.driver.play.LocalzDriverSDK;
 
+import org.jetbrains.annotations.NotNull;
+
 public class ActionsActivity extends AppCompatActivity {
 
     private static final String TAG = "ActionsActivity";
@@ -29,7 +31,7 @@ public class ActionsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        findViewById(R.id.onDuty).setOnClickListener(v -> LocalzDriverSDK.getInstance().onDuty(ActionsActivity.this, true, new Callback<Void>() {
+        findViewById(R.id.onDuty).setOnClickListener(v -> LocalzDriverSDK.INSTANCE.onDuty(ActionsActivity.this, true, new Callback<Void>() {
             @Override
             public void onSuccess(Void result) {
                 Log.d(TAG, "onDuty onSuccess");
@@ -37,12 +39,12 @@ public class ActionsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Error error) {
+            public void onError(@NotNull Error error) {
                 Log.d(TAG, "onDuty onError: " + error);
             }
         }));
 
-        findViewById(R.id.offDuty).setOnClickListener(v -> LocalzDriverSDK.getInstance().onDuty(ActionsActivity.this, false, new Callback<Void>() {
+        findViewById(R.id.offDuty).setOnClickListener(v -> LocalzDriverSDK.INSTANCE.onDuty(ActionsActivity.this, false, new Callback<Void>() {
             @Override
             public void onSuccess(Void result) {
                 Log.d(TAG, "setOffDuty onSuccess");
@@ -50,12 +52,12 @@ public class ActionsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Error error) {
+            public void onError(@NotNull Error error) {
                 Log.d(TAG, "setOffDuty onError: " + error);
             }
         }));
 
-        findViewById(R.id.logout).setOnClickListener(v -> LocalzDriverSDK.getInstance().logout(ActionsActivity.this, true, new Callback<Void>() {
+        findViewById(R.id.logout).setOnClickListener(v -> LocalzDriverSDK.INSTANCE.logout(ActionsActivity.this, true, new Callback<Void>() {
             @Override
             public void onSuccess(Void result) {
                 Log.d(TAG, "logout onSuccess");
@@ -65,7 +67,7 @@ public class ActionsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Error error) {
+            public void onError(@NotNull Error error) {
                 Log.d(TAG, "logout onError: " + error);
             }
         }));
@@ -79,18 +81,18 @@ public class ActionsActivity extends AppCompatActivity {
 
     private void refresh() {
         runOnUiThread(() -> {
-            final LocalzDriverSDK localzDriverSDK = LocalzDriverSDK.getInstance();
+            final LocalzDriverSDK localzDriverSDK = LocalzDriverSDK.INSTANCE;
 
             ((TextView) findViewById(R.id.is_initialised)).setText(
-                    "Initialised: " + localzDriverSDK.isInitialised(ActionsActivity.this)
+                    "Initialised: " + localzDriverSDK.isInitialised()
             );
 
             ((TextView) findViewById(R.id.is_logged_in)).setText(
-                    "Logged in: " + localzDriverSDK.isLoggedIn(ActionsActivity.this)
+                    "Logged in: " + localzDriverSDK.isLoggedIn()
             );
 
             ((TextView) findViewById(R.id.is_on_duty)).setText(
-                    "On duty: " + localzDriverSDK.isOnDuty(ActionsActivity.this)
+                    "On duty: " + localzDriverSDK.isOnDuty()
             );
 
             ((TextView) findViewById(R.id.has_local_changes)).setText(

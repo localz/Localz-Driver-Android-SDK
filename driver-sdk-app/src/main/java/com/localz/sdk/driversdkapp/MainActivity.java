@@ -19,24 +19,26 @@ import com.localz.sdk.driver.Callback;
 import com.localz.sdk.driver.Error;
 import com.localz.sdk.driver.play.LocalzDriverSDK;
 
+import org.jetbrains.annotations.NotNull;
+
 public class MainActivity extends AppCompatActivity {
-    public static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
     
     // Provide your own values
-    public static final String PROJECT_ID = "YOUR_PROJECT_ID";
-    public static final String SPOTZ_PROJECT_KEY = "YOUR_SPOTZ_PROJECT_KEY";
-    public static final String ATTENDANT_KEY = "YOUR_ATTENDANT_KEY";
-    public static final String ENVIRONMENT = "prd"; // prd, dev, stg, tst
+    private static final String PROJECT_ID = "YOUR_PROJECT_ID";
+    private static final String SPOTZ_PROJECT_KEY = "YOUR_SPOTZ_PROJECT_KEY";
+    private static final String ATTENDANT_KEY = "YOUR_ATTENDANT_KEY";
+    private static final String ENVIRONMENT = "prd"; // prd, dev, stg, tst
 
     private static final int REQUEST_ACCESS_LOCATION = 14;
-    Button initializeButton;
+    private Button initializeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (hasPermissions() && LocalzDriverSDK.getInstance().isInitialised(this)) {
+        if (hasPermissions() && LocalzDriverSDK.INSTANCE.isInitialised()) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 .setEnvironment(ENVIRONMENT)
                 .setPinningEnabled(false);
 
-        LocalzDriverSDK.getInstance().init(this, configuration, new Callback<Void>() {
+        LocalzDriverSDK.INSTANCE.init(this, configuration, new Callback<Void>() {
             @Override
             public void onSuccess(Void result) {
                 Log.d(TAG, "init onSuccess");
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Error error) {
+            public void onError(@NotNull Error error) {
                 Log.d(TAG, "init onError: " + error);
             }
         });
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NotNull String permissions[], @NotNull int[] grantResults) {
         Log.d(TAG, "onRequestPermissionsResult");
         if (requestCode == REQUEST_ACCESS_LOCATION) {
             // If request is cancelled, the result arrays are empty.
